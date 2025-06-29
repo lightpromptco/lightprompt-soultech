@@ -1,0 +1,16 @@
+{
+  "buildCommand": "npx next build",
+  "devCommand": "npx next dev",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "outputDirectory": ".next",
+  "env": {
+    "NEXT_PUBLIC_SUPABASE_URL": "https://oupmelrulhnbaojpgugs.supabase.co",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91cG1lbHJ1bGhuYmFvanBndWdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA3Nzc5MTEsImV4cCI6MjA2NjM1MzkxMX0.Zr3X1hhsgp2dKznyJd0R1rVfragHGZRnH3ZYHad_Lhs"
+  },
+  "functions": {
+    "app/api/**/*.js": {
+      "maxDuration": 30
+    }
+  }
+}
