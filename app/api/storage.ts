@@ -1,5 +1,4 @@
-import { supabase } from './supabase';
-
+import { supabase } from './supabaseclient';
 // Soul Technology message interface for Supabase integration
 export interface Message {
   id: string;
