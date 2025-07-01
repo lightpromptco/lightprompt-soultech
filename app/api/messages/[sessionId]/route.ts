@@ -3,6 +3,8 @@ import { storage } from '../../storage';
 
 export async function GET(request: NextRequest) {
   const sessionId = request.nextUrl.pathname.split('/').pop();
+  // or use `request.nextUrl.searchParams.get("sessionId")` if you're passing it as a query param
+}
 
   if (!sessionId) {
     return NextResponse.json({ error: 'Missing session ID' }, { status: 400 });
