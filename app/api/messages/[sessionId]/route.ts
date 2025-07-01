@@ -1,36 +1,66 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { storage } from '../../storage';
+// app/api/messages/[sessionId]/route.ts
+import { storage } from '../../../../storage';
 
-export async function GET(request: NextRequest) {
-  const sessionId = request.nextUrl.pathname.split('/').pop();
-  // or use `request.nextUrl.searchParams.get("sessionId")` if you're passing it as a query param
+interface Params {
+  sessionId: string;
 }
 
+/**
+ * GET /api/messages/[sessionId]
+ */
+export async function GET(
+  request: Request,
+  { params }: { params: Params }
+) {
+  const { sessionId } = params;
   if (!sessionId) {
-    return NextResponse.json({ error: 'Missing session ID' }, { status: 400 });
+    return new Response(
+      JSON.stringify({ error: 'Missing session ID' }),
+      { status: 400, headers: { 'Content-Type': 'application/json' } }
+    );
   }
 
   try {
     const messages = await storage.getMessagesBySession(sessionId);
-    return NextResponse.json(messages);
+    return new Response(
+      JSON.stringify(messages),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    );
   } catch (error) {
     console.error('Error fetching messages:', error);
-    return NextResponse.json({ error: 'Failed to fetch messages' }, { status: 500 });
+    return new Response(
+      JSON.stringify({ error: 'Failed to fetch messages' }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
   }
 }
 
-export async function DELETE(request: NextRequest) {
-  const sessionId = request.nextUrl.pathname.split('/').pop();
-
+/**
+ * DELETE /api/messages/[sessionId]
+ */
+export async function DELETE(
+  request: Request,
+  { params }: { params: Params }
+) {
+  const { sessionId } = params;
   if (!sessionId) {
-    return NextResponse.json({ error: 'Missing session ID' }, { status: 400 });
+    return new Response(
+      JSON.stringify({ error: 'Missing session ID' }),
+      { status: 400, headers: { 'Content-Type': 'application/json' } }
+    );
   }
 
   try {
     await storage.clearSession(sessionId);
-    return NextResponse.json({ success: true });
+    return new Response(
+      JSON.stringify({ success: true }),
+      { status: 200, headers: { 'Content-Type': 'application/json' } }
+    );
   } catch (error) {
     console.error('Error clearing session:', error);
-    return NextResponse.json({ error: 'Failed to clear session' }, { status: 500 });
+    return new Response(
+      JSON.stringify({ error: 'Failed to clear session' }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
+    );
   }
 }
