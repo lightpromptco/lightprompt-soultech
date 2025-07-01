@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { storage } from '../../storage'; // adjust path if needed
+import { storage } from '../../storage';
 
 export async function GET(request: NextRequest) {
   const sessionId = request.nextUrl.pathname.split('/').pop();
